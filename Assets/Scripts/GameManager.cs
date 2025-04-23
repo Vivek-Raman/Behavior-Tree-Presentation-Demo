@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
 using dev.vivekraman.Enums;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
 namespace dev.vivekraman
 {
   public class GameManager : MonoBehaviour
   {
-    [SerializeField] private BatAgent agent;
     [SerializeField] private PrefabHolder prefabHolder;
     [SerializeField] private List<Transform> spawnPoints;
+
+    private GameObject _agent;
 
     #region Singleton
 
@@ -25,7 +29,7 @@ namespace dev.vivekraman
 
     #endregion
     
-    private readonly int[] _agentPositions =
+    private readonly int[] _agentPosition =
     {
       0, 1,
       0, 0,
@@ -33,27 +37,25 @@ namespace dev.vivekraman
     
     private readonly int[] _enemyPositions =
     {
-      1, 0,
-      1, 0,
+      0, 0,
+      2, 0,
     };
     
     private readonly int[] _foodPositions =
     {
-      0, 1,
-      1, 1,
+      4, 2,
+      2, 3,
     };
 
     private void Start()
     {
+      _agent = GameObject.FindWithTag("Agent");
+      Assert.IsNotNull(_agent);
       FlushGameObjects();
     }
 
     public void FlushGameObjects()
     {
-      foreach (GameObject o in GameObject.FindGameObjectsWithTag("Agent"))
-      {
-        Destroy(o);
-      }
       foreach (GameObject o in GameObject.FindGameObjectsWithTag("Enemy"))
       {
         Destroy(o);
@@ -66,33 +68,34 @@ namespace dev.vivekraman
       for (int i = 0; i < spawnPoints.Count; ++i)
       {
         Transform spawnPoint = spawnPoints[i];
-        if (_agentPositions[i] == 1)
+        if (_agentPosition[i] == 1)
         {
-          GameObject.Instantiate(prefabHolder.agentPrefab, spawnPoint.position, spawnPoint.rotation);
+          _agent.transform.position = spawnPoint.position;
         }
-        if (_enemyPositions[i] == 1)
+        for (int j = 0; j < _enemyPositions[i]; ++j)
         {
-          GameObject.Instantiate(prefabHolder.enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+          GameObject.Instantiate(prefabHolder.enemyPrefab, GenerateOffset() + spawnPoint.position, spawnPoint.rotation);
         }
-        if (_foodPositions[i] == 1)
+        for (int j = 0; j < _foodPositions[i]; ++j)
         {
-          GameObject.Instantiate(prefabHolder.foodPrefab, spawnPoint.position, spawnPoint.rotation);
+          GameObject.Instantiate(prefabHolder.foodPrefab, GenerateOffset() + spawnPoint.position, spawnPoint.rotation);
         }
       }
     }
 
     public void MoveAgentTo(int targetIndex)
     {
-      for (int i = 0; i < _agentPositions.Length; ++i)
+      for (int i = 0; i < _agentPosition.Length; ++i)
       {
-        _agentPositions[i] = i == targetIndex ? 1 : 0;
+        _agentPosition[i] = i == targetIndex ? 1 : 0;
       }
-      FlushGameObjects();
+
+      _agent.transform.DOMove(spawnPoints[targetIndex].position, 1f).SetEase(Ease.Linear);
     }
 
     public void EatFoodAt(int targetIndex)
     {
-      _agentPositions[targetIndex] = 0;
+      --_foodPositions[targetIndex];
       FlushGameObjects();
     }
 
@@ -100,15 +103,20 @@ namespace dev.vivekraman
     {
       return target switch
       {
-        AgentTarget.Orc => _enemyPositions[index] == 1,
-        AgentTarget.Pizza => _foodPositions[index] == 1,
+        AgentTarget.Orc => _enemyPositions[index] > 0,
+        AgentTarget.Pizza => _foodPositions[index] > 0,
         _ => false,
       };
     }
 
     public int GetPlayerIndex()
     {
-      return Array.IndexOf(_agentPositions, 1);
+      return Array.IndexOf(_agentPosition, 1);
+    }
+    
+    private Vector3 GenerateOffset()
+    {
+      return 1.25f * Random.insideUnitCircle;
     }
   }
 }

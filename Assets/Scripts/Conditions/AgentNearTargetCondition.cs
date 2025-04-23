@@ -8,11 +8,10 @@ namespace dev.vivekraman.Conditions
 {
   [Serializable]
   [GeneratePropertyBag]
-  [Condition("Agent Near Target", story: "[Agent] is near [Target]", category: "Conditions",
+  [Condition("Agent Near Target", story: "Bat is near [Target]", category: "Conditions",
     id: "ee626bfd4907a6fb2e07446c02f35f93")]
   public class AgentNearTargetCondition : Condition
   {
-    [SerializeReference] public BlackboardVariable<BatAgent> Agent;
     [SerializeReference] public BlackboardVariable<AgentTarget> Target;
 
     public override bool IsTrue()

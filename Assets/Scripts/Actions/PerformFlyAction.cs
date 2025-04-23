@@ -9,11 +9,10 @@ namespace dev.vivekraman.Actions
 {
   [Serializable]
   [GeneratePropertyBag]
-  [NodeDescription("Perform Fly", story: "[Bat] flies [direction]", category: "Action",
+  [NodeDescription("Perform Fly", story: "Bat flies [direction]", category: "Action",
     id: "55b05c41a632105684bf610b979b0ef6")]
   public class PerformFlyAction : Action
   {
-    [SerializeReference] public BlackboardVariable<BatAgent> Bat;
     [SerializeReference] public BlackboardVariable<FlyDirection> Direction;
 
     protected override Status OnStart()
@@ -28,8 +27,8 @@ namespace dev.vivekraman.Actions
           0 => 1,
           1 => 3,
           3 => 2,
-          2 => 1,
-          _ => throw new ArgumentOutOfRangeException("playerIndex", "Bad value of playerIndex"),
+          2 => 0,
+          _ => throw new Exception("Bad value of playerIndex"),
         };
       }
       else
@@ -40,7 +39,7 @@ namespace dev.vivekraman.Actions
           2 => 3,
           3 => 1,
           1 => 0,
-          _ => throw new ArgumentOutOfRangeException("playerIndex", "Bad value of playerIndex"),
+          _ => throw new Exception("Bad value of playerIndex"),
         };
       }
       

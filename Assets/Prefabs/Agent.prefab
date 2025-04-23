@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: -2831098116763341399, guid: fdfddab43cf5d7ee58df0b300fb1b027, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -120,7 +120,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5815817210414635700}
   - component: {fileID: 7050315431538156061}
-  - component: {fileID: 7415020762792651463}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Agent
@@ -159,7 +158,6 @@ MonoBehaviour:
   m_Graph: {fileID: 9186229018479157099, guid: e82b72c69cd0ddb46b3682b78cd4eb43, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 3739549520957538622
-  - rid: 3739549523208831555
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
@@ -173,24 +171,3 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 6301760591657941817}
-    - rid: 3739549523208831555
-      type: {class: 'BlackboardVariable`1[[dev.vivekraman.BatAgent, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 12032884688768962331
-          m_Value1: 8157110466727490976
-        Name: Bat
-        m_Value: {fileID: 7415020762792651463}
---- !u!114 &7415020762792651463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6301760591657941817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4fa3cfb8bf088dd094fc139bf08cfaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentIndex: 2

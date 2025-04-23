@@ -9,11 +9,10 @@ namespace dev.vivekraman.Actions
 {
   [Serializable]
   [GeneratePropertyBag]
-  [NodeDescription("Perform Eat", story: "[Bat] eats [Target]", category: "Action",
+  [NodeDescription("Perform Eat", story: "Bat eats [Target]", category: "Action",
     id: "f6009bd26e7010efb98c8fddaad2e43e")]
   public class PerformEatAction : Action
   {
-    [SerializeReference] public BlackboardVariable<BatAgent> Bat;
     [SerializeReference] public BlackboardVariable<AgentTarget> Target;
 
     protected override Status OnStart()
