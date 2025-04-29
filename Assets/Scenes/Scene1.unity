@@ -171,6 +171,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agent
       objectReference: {fileID: 0}
+    - target: {fileID: 7050315431538156061, guid: 7f9e6b1ae9d1bd811b57db955c4a09b8, type: 3}
+      propertyPath: m_Graph
+      value: 
+      objectReference: {fileID: -2522515980646532818, guid: e82b72c69cd0ddb46b3682b78cd4eb43, type: 2}
+    - target: {fileID: 7050315431538156061, guid: 7f9e6b1ae9d1bd811b57db955c4a09b8, type: 3}
+      propertyPath: managedReferences[3739549520957538622].Name
+      value: Bat
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7415020762792651463, guid: 7f9e6b1ae9d1bd811b57db955c4a09b8, type: 3}
     m_RemovedGameObjects: []
